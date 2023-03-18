@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Castle Tycoon</title>
+  <link rel="stylesheet" href="./castle.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<center>
+<div id="title">CASTLE TYCOON</div>
+<p>A Game by <a href="https://codepen.io/theKing01/">Joe</a></p></div>
+<div id="cash">Bank: $1000</div>
+<div id="netW">Profit: +$0</div>
+<div id="magicAmount">Magic: 0%</div>
+</center>
+<div id="btnsAndStuff">
+<div class="lowerPrice">
+	<div id="lowName">Cannon</div>
+	<div id="lowLevel">Lvl. 0</div>
+	<div id="lowPrice">Cost: $100</div>
+	<br>
+	<button id="buyBtn" onClick="purchase(1)">PURCHASE</button>
+</div>
+<div class="middlePrice">
+	<div id="middleName">Gate & Walls</div>
+	<div id="middleLevel">Lvl. 0</div>
+	<div id="middlePrice">Cost: $300</div>
+	<br>
+	<button id="buyBtn" onClick="purchase(2)">PURCHASE</button>
+</div>
+<div class="highPrice">
+	<div id="highName">Barracks</div>
+	<div id="highLevel">Lvl. 0</div>
+	<div id="highPrice">Cost: $800</div>
+	<br>
+	<button id="buyBtn" onClick="purchase(3)">PURCHASE</button><br>
+	<button id="addTBtn" onClick="purchase(5)">ENERGIZE</button>
+<div class="minePrice">
+	<div id="mineName">Mine</div>
+	<div id="mineLevel">Lvl. 0</div>
+	<div id="minePrice">Cost: $20000</div>
+	<br>
+	<button id="buyBtn" onClick="purchase(4)">PURCHASE</button>
+</div>
+	<div id="heroBox1">
+		<div id="heroName">KNIGHT</div>
+		<div>Profit +20%</div>
+		<div>Magic -20%</div>
+		<div>Lvl. 0</div>
+		<div>Cost: $100000</div>
+		<button id="delBtn">HIRE</button>
+		<button id="upgBtn1" class="upgBtn" onClick="unlockHero()">UPGRADE</button>
+	</div>
+	<div id="heroBox2">
+		<div id="heroName">WIZARD</div>
+		<div>Profit –20%</div>
+		<div>Magic +20%</div>
+		<div>Lvl. 0</div>
+		<div>Cost: $100000</div>
+		<button id="delBtn">HIRE</button>
+		<button id="upgBtn2" class="upgBtn" onClick="unlockHero(2)">UPGRADE</button>
+	</div>
+<div id="castleStats">
+	<div id="strong">Strength: 0</div>
+	<div id="power">Power: 0</div>
+	<div id="defense">Defense: 0</div>
+</div>
+<button id="atkBtn" onClick="attackEnemy()">ATTACK</button>
+<button id="adder">0</button>
+<div id="atkCost">Cost: $100 & 10 Defense</div>
+	</div>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>
+<script>var bank = 1000;
+var netWorth = 0;
+var energized = false;
+var energy = 0;
+var isMagic = false;
+var magic = 0;
+var extraCash = 0;
+var cannonStats = {
+	level: 0,
+	price: 100,
+	modifier: 10
+}
+var gateStats = {
+	level: 0,
+	price: 300,
+	modifier: 30
+}
+var barracksStats = {
+	level: 0,
+	price: 800,
+	modifier: 50
+}
+var mineStats = {
+	level: 0,
+	price: 20000,
+	mod: 1
+}
+var castle = {
+	strength: 0,
+	power: 0,
+	defense: 0
+}
+
+function purchase(item) {
+	switch (item) {
+		case 1:
+			if (cannonStats.price <= bank) {
+				bank = bank - cannonStats.price;
+				cannonStats.level = cannonStats.level + 1;
+				cannonStats.price = Math.floor(cannonStats.price * 1.5);
+				castle.power = castle.power + 10;
+				castle.strength = castle.strength + 10;
+				magic = Math.floor(magic / 2);
+				magicAmount.innerHTML = "Magic: " + magic + "%";
+				magicAmount.style.width = ((magic * 5) + 81) + "px";
+			};
+			break;
+		case 2:
+			if (gateStats.price <= bank) {
+				bank = bank - gateStats.price;
+				gateStats.level = gateStats.level + 1;
+				gateStats.price = Math.floor(gateStats.price * 1.7);
+				castle.strength = castle.strength + 20;
+				castle.defense = castle.defense + 40;
+				magic = Math.floor(magic / 3);
+				magicAmount.innerHTML = "Magic: " + magic + "%";
+				magicAmount.style.width = ((magic * 5) + 81) + "px";
+			};
+			break;
+		case 3:
+			if (barracksStats.price <= bank) {
+				bank = bank - barracksStats.price;
+				barracksStats.level = barracksStats.level + 1;
+				barracksStats.price = Math.floor(barracksStats.price * 2);
+				castle.power = castle.power + 30;
+				castle.defense = castle.defense + 30;
+				if (barracksStats.level > 4) {
+					addTBtn.style.visibility = "visible";
+				}
+				magic = Math.floor(magic / 4);
+				magicAmount.innerHTML = "Magic: " + magic + "%";
+				magicAmount.style.width = ((magic * 5) + 81) + "px";
+			};
+			break;
+		case 4:
+			if (mineStats.price <= bank) {
+				bank = bank - mineStats.price;
+				mineStats.level = mineStats.level + 1;
+				mineStats.price = mineStats.price + 10000;
+				castle.power = castle.power + 50;
+				mineStats.mod = mineStats.mod + 0.5;
+				magic = Math.floor(magic / 2);
+				magicAmount.innerHTML = "Magic: " + magic + "%";
+				magicAmount.style.width = ((magic * 5) + 81) + "px";
+			};
+			break;
+		case 5:
+			if (1500 <= bank) {
+				bank = bank - 1500;
+				energy = energy + 1;
+				addTBtn.innerHTML = "ENERGIZED " + energy;
+				energized = true;
+				magic = Math.floor(magic / 2);
+				magicAmount.innerHTML = "Magic: " + magic + "%";
+				magicAmount.style.width = ((magic * 5) + 81) + "px";
+			};
+			break;
+	}
+	update();
+}
+
+var prevPower = 0;
+
+function update() {
+	lowLevel.innerHTML = "Lvl. " + cannonStats.level;
+	lowPrice.innerHTML = "Cost: $" + cannonStats.price;
+	middleLevel.innerHTML = "Lvl. " + gateStats.level;
+	middlePrice.innerHTML = "Cost: $" + gateStats.price;
+	highLevel.innerHTML = "Lvl. " + barracksStats.level;
+	highPrice.innerHTML = "Cost: $" + barracksStats.price;
+	mineLevel.innerHTML = "Lvl. " + mineStats.level;
+	minePrice.innerHTML = "Cost: $" + mineStats.price;
+	cash.innerHTML = "Bank: $" + bank;
+	strong.innerHTML = "Strength: " + castle.strength;
+	power.innerHTML = "Power: " + castle.power;
+	defense.innerHTML = "Defense: " + castle.defense;
+	magicAmount.innerHTML = "Magic: " + magic + "%";
+	if (energy < 1) {
+		energized = false;
+	}
+	if (energized == true) {
+		addTBtn.style.border = "#ee9911"
+		addTBtn.style.background = "#ee9911";
+		addTBtn.style.boxShadow = "0px 0px 5px #ee9911"
+	} else if (energized == false) {
+		addTBtn.style.background = "initial";
+		addTBtn.style.border = "solid 1px #fff";
+		addTBtn.style.boxShadow = "initial";
+		addTBtn.innerHTML = "ENERGIZE";
+	}
+	if (cannonStats.level > 9 && isMagic == true) {
+		atkBtn.style.left = "-130px";
+		adder.style.visibility = "visible";
+	}
+	prevPower = castle.power;
+}
+
+var timed = (1000 - (magic * 7));
+var myVar = setInterval(addMoney, timed);
+
+function addMoney() {
+	netWorth = ((cannonStats.level * cannonStats.modifier) + (gateStats.level * gateStats.modifier) + (barracksStats.level * barracksStats.modifier)) * mineStats.mod;
+	bank = bank + netWorth;
+	cash.innerHTML = "Bank: $" + bank;
+	netW.innerHTML = "Profit: +$" + netWorth;
+	strong.innerHTML = "Strength: " + castle.strength;
+	power.innerHTML = "Power: " + castle.power;
+	defense.innerHTML = "Defense: " + castle.defense;
+	update();
+}
+
+var myVar2 = setInterval(addDef, 10000);
+
+function addDef() {
+	if (barracksStats.level > 3) {
+		castle.defense = castle.defense + ((barracksStats.level - 3) * 20);
+	}
+	defense.innerHTML = "Defense: " + castle.defense;
+}
+
+function attackEnemy() {
+	if (castle.strength == 0 || castle.power == 0) {
+		alert("You cannot attack without strength or power!");
+	} else {
+		if (bank > 100 && castle.defense >= 10) {
+			bank = bank - 100;
+			castle.defense = castle.defense - 10;
+			var odds = Math.floor(Math.random() * 11) + energy;
+			if (energy > 0) {
+				energy = energy - 1;
+				addTBtn.innerHTML = "ENERGIZED " + energy;
+			}
+			if (odds < 5) {
+				alert("You lost!" + "You lost $" + ((odds * 100) + 200));
+				bank = bank - ((odds * 100) + 200);
+			} else if (odds > 5) {
+				alert("You won!" + "You gained $" + ((odds * 100) + castle.strength + castle.power));
+				bank = bank + ((odds * 100) + castle.strength + castle.power);
+			} else if (odds == 5) {
+				alert("You tied.");
+			}
+		} else {
+			alert("You cannot attack without money or defenses!");
+		}
+		cash.innerHTML = "Bank: $" + bank;
+	}
+	update();
+}
+
+var myVar3 = setInterval(addMagic, 2000);
+
+function addMagic() {
+	if (mineStats.level > 2) {
+		if (isMagic == false) {
+			alert("Deep in the mountain your miners discovered something...")
+			magicAmount.style.visibility = "visible";
+		}
+		isMagic = true;
+		if (magic < 101) {
+			magic = magic + 1;
+			timed = (1000 - (magic * 7));
+			clearInterval(myVar);
+			myVar = setInterval(addMoney, timed);
+		}
+		if (magic > 100) {
+			magic = 100;
+		}
+		magicAmount.innerHTML = "Magic: " + magic + "%";
+		magicAmount.style.width = ((magic * 5) + 81) + "px";
+	} else {
+		magicAmount.style.visibility = "hidden";
+	}
+}
+adder.addEventListener("mouseover", function() {
+	myVar4 = setInterval(addStuff, 500);
+	if (isMagic == true) {
+		clearInterval(myVar3);
+	}
+});
+adder.addEventListener("mouseout", function() {
+	clearInterval(myVar4);
+	if (isMagic == true) {
+		myVar3 = setInterval(addMagic, 2000);
+	}
+});
+adder.addEventListener("click", function() {
+	bank = bank + extraCash;
+	extraCash = 0;
+	if (isMagic == true) {
+		clearInterval(myVar3);
+		addMagic();
+		magic = Math.floor(magic / 2);
+		magicAmount.innerHTML = "Magic: " + magic + "%";
+		magicAmount.style.width = ((magic * 5) + 81) + "px";
+	}
+});
+
+function addStuff() {
+	extraCash = extraCash + 100;
+	adder.innerHTML = "$" + extraCash;
+	if (isMagic == true && magic > 50) {
+		magic = magic - 1;
+		magicAmount.innerHTML = "Magic: " + magic + "%";
+		magicAmount.style.width = ((magic * 5) + 81) + "px";
+	}
+}
+
+var test = function() {
+	var now = Date.now();
+	var delta = now - then;
+	
+	update();
+	
+	then = now;
+	
+	requestAnimationFrame(test);
+}
+
+var then = Date.now();
+test();
+</script>

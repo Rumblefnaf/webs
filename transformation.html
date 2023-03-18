@@ -1,0 +1,104 @@
+<html>
+    <head>
+        <h1 id="money"></h1>
+    </head>
+<body onload="killacess()">
+    <h1>TRANSFORMATION</h1>
+    <button onclick="transform()">TRANSFORM</button></button>  <button onclick="untransform()" >UNTRANSFORM</button>
+    <p id="type"></p>
+    
+</body>
+<footer>
+    <button onclick="steal()">STEAL TO SOMEONE HOUSE</button>
+    <br>
+    <button onclick="buyacess()" id="ba">BUY ACESS</button>
+    <br>
+    <button onclick="kill()" id="ka">KILL</button>
+</footer>
+</html>
+
+
+
+<script>
+    var acess = 0;
+    var money = 0;
+    
+    
+    function transform(){
+        if(acess==1) {
+            alert("YOU SHIFTED INTO AN WOLF");
+          type = "wolf";
+        
+         document.getElementById("type").innerHTML = type;
+         
+        }else {
+            alert("YOU NEED AN TRANSFORM ACESS");
+            document.getElementById("type").innerHTML = type;
+           }
+        }
+        
+        
+        var type = "human";
+        
+        
+       
+       
+        //other↓
+       function untransform(){
+           if (acess==1) {
+               type = "human"
+           alert("YOU SHIFTED INTO HUMAN")
+           document.getElementById("type").innerHTML = type;
+           }else {
+               alert("YOU NEED AN TRANSFORM ACESS")
+           }
+       }
+       
+       
+       
+        document.getElementById("type").innerHTML = type;
+        
+document.getElementById("money").innerHTML = money;
+      
+        function steal(){
+        if (type == "wolf") {
+            alert("the peoples in the house was scared and give you 100$");
+            money = money +100
+            document.getElementById("money").innerHTML = money;
+        }else {
+            alert("you searched a little because you are scared so you found only 1$");
+            money = money +1;
+            document.getElementById("money").innerHTML = money;
+        }
+            
+            
+        }
+
+function buyacess(){
+    if (money<=50) {
+        alert("YOU NEED 50 MONEY");
+    }else {
+        money = money -50;
+        acess = 1;
+       document.getElementById("ba").style.visibility="hidden"; document.getElementById("money").innerHTML = money;
+       document.getElementById("ka").style.visibility="visible"
+    }
+    
+}
+
+
+function killacess() {
+    if (acess==1) {
+        document.getElementById("ka").style.visibility="visible"
+    }else {
+        document.getElementById("ka").style.visibility="hidden"
+    }
+    
+}
+
+fonction kill(){
+    alert("YOU KILLED SOMEONE
+        ")
+}
+
+</script>

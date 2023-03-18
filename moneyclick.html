@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Money Clicker *Saving  System*</title>
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<center>
+    <div id="money">25000</div>
+<button onclick="AddMoney()">Click me for cash</button>
+<button onclick="rebirth()">Click me To Rebirth.</button>
+<button onclick="save()" style="background-color: green; color: red;">Save</button>
+<button onclick="load()">Load</button>
+<button onclick="lifelife2()">YourLife</button>
+<button onclick="reset()">Reset Game</button>
+<button onclick="morePerClick()">Click me for more plus 1 per click</button>
+<button onclick="autoclicker()">Auto clicker PRICE:200000.</button>
+<button onclick="timestwo()">x2 per click PRICE:1,000,000,000</button>
+  <button onclick="holiday()" id="holidaygift">Click me for a free 50,000 Money You can only collect once this time only*CHRISTMAS SPECIAL</button>
+   <input type="text" placeholder="Heads or tails?" id="coin">
+            <button onclick="coinflip()">Enter</button>
+<h1 class="money">Money Clicker *COIN FLIP*</h1>
+</center>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>
+<script>var shards = 0;
+  var coinside;
+            var DidYouWin;
+var life = 1;
+var sub = 99999;
+var addition = 10;
+var money = 25000;
+var cost = 1;
+var autoclicker = function autoclicker(){
+  console.log("auto clicker purchased");
+  if(money>199999){
+   money = money - 200000;
+    setInterval(function autonewclick() {
+  AddMoney();
+}, 200);  }
+}
+function coinflip(){
+                console.log("1");
+                var bet = prompt("How much money do you bet?, say all to bet all of your money."); // asks how much money you bet.
+                 if(bet == "all"){
+                    bet = money;
+                }
+                alert("flipping...");
+                var flip = Math.random(); // math.random
+                if(flip < 0.5){   // if math.radom times 100 is = 50 or less its heads
+                    console.log("heads");
+                    coinside = "heads";
+                     DidYouWin = document.getElementById("coin").value;
+                      console.log("DidYouWin1:"+ DidYouWin);
+                    console.log("DidYouWin:"+ DidYouWin);
+                    console.log(flip);
+                    if(DidYouWin == coinside){
+                        bet = parseInt(bet);
+                        console.log("h2/2");
+                        money = money + bet;
+                        alert("You won the bet!!");
+                        document.getElementById("money").innerHTML=money;
+                    }
+                    if(DidYouWin != coinside){
+                            money = money - bet;
+                            document.getElementById("money").innerHTML=money;
+                            console.log("You lost");
+                            alert("You lost the coinflip.");
+                        }
+                }else if(flip  > 0.5){
+                   console.log("tails");
+                    coinside = "tails";
+                     DidYouWin = document.getElementById("coin").value;
+                      console.log("DidYouWin1:"+ DidYouWin);
+                    console.log("DidYouWin:"+ DidYouWin);
+                    console.log("Its tails");
+                    console.log(flip);
+                    if(DidYouWin == coinside){
+                        bet = parseInt(bet);
+                        console.log("tails you win");
+                        money = money + bet;
+                        alert("You won the bet!!");
+                        document.getElementById("money").innerHTML=money;
+                    }
+                    if(DidYouWin != coinside){
+                            money = money - bet;
+                            document.getElementById("money").innerHTML=money;
+                            console.log("You lost");
+                            alert("You lost the coinflip.");
+                        }
+                }
+                
+            }
+   var gift = false; // makes sure that the user didnt collect a gift yet.
+    function holiday() {
+      if(gift == false){ //checks if you didnt collect your gift yet
+        money = money + 50000; //sets money to a new value of + 50000
+        document.getElementById("money").innerHTML=money; // Displays the money on screen
+        gift = true; // verifys that you already collected your gift.
+        console.log("Gift collected");
+        
+      }else{
+        alert("You already collected your gift this year!");
+      }
+    }
+    function timestwo(){
+      if(money > 999999999){ //checks if you have enought money to buy
+         money = money - 1000000000; // takes away the cost from the money
+         addition = addition * 2; // makes you get x2 more per click
+         console.log(addition + " per click.");  
+         document.getElementById("money").innerHTML=money; // displays the money
+      }else{
+         alert("You dont have enought money for this."); // if you dont have enought money this will happen
+      }
+  }
+
+load(); // loads the game up just when you open the tab
+alert("This is how you play the game,\nso you click for more money and if you rebirth you get 1 shard every 1000 money you had.\nShards can be used to upgrade your money per click. The first upgrade will cost you 1 shard the next ones will all cost one more. \n If you are trying to recreate this game you have to give me credit for making, No copyrighting \n ©ᶜᵒᵖʸʳᶦᵍʰᵗ ²⁰¹⁷");
+function morePerClick(){ // gives you +1 money per click
+    console.log("You have " + addition + " money per click");
+    if(shards >= cost){ // checks if you have enought of the other currency, shards.
+        shards = shards - cost; // takes away shards to give more per click
+        cost = cost + 1;  // this makes the cost of more per click a little higher. By one shard
+        addition = addition + 1; // one more per click
+        alert("you now have " + addition + " per click and " + shards + " remaining");
+        
+    }else{
+        alert("Either you dont have enough shards or there is an error");
+    }
+}
+function reset(){ // resets your whole game and sets the var value back to normal
+  OneMoree = 49999;  
+  life = 1;
+  sub = 99999;
+  addition = 10;
+  money = 25000;
+  shards = 0;
+  cost = 1;
+  clearInterval(autonewclick);
+  gift = false;
+  document.getElementById("money").innerHTML=money;
+  save();
+}
+function lifelife2(){
+    alert("You are on life " + life + " you currently have " + shards + " shards");
+}
+
+
+function AddMoney() {
+    money = money + addition;
+    document.getElementById("money").innerHTML=money;
+}
+function rebirth(){
+    
+        shards=shards + parseInt(money/1000);
+        life = life + 1;
+        console.log("congrats on rebirthing to life " + life);
+        alert("You have rebirthed " + money + " of your currency, you now have " + shards + " shards");
+        money = 0;
+        document.getElementById("money").innerHTML=money;
+        sub = sub + 100000;
+        
+    }
+    
+function save() {
+    localStorage.setItem('life', JSON.stringify(life));
+      localStorage.setItem('sub', JSON.stringify(sub));
+        localStorage.setItem('addition', JSON.stringify(addition));
+          localStorage.setItem('money', JSON.stringify(money));
+          localStorage.setItem('next', JSON.stringify(next));
+          localStorage.setItem('shards', JSON.stringify(shards));
+          localStorage.setItem('cost', JSON.stringify(cost));
+          localStorage.setItem('autonewclick', JSON.stringify(autonewclick));
+          localStorage.setItem('gift', JSON.stringify(gift));
+            alert("Game saved!");
+}
+
+function load() {
+     gift=JSON.parse(localStorage.getItem('gift'));
+   autonewclick=JSON.parse(localStorage.getItem('autonewclick'));
+        next=JSON.parse(localStorage.getItem('next'));
+    life=JSON.parse( localStorage.getItem('life'));
+      sub=JSON.parse(localStorage.getItem('sub'));
+    addition=JSON.parse( localStorage.getItem('addition'));
+    money=JSON.parse(localStorage.getItem('money'));
+    shards=JSON.parse(localStorage.getItem('shards'));
+    cost=JSON.parse(localStorage.getItem('cost'));
+    document.getElementById('money').innerHTML=money;
+}
+</script>

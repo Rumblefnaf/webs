@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - My Goals Tycoon</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<html>
+  <body>
+    <div class="container">
+    <h1>Goal Tycoon!</h1>
+    <p id="totalGoal"></p>
+    <p id="NoOfPlayers">Players: 0</p>
+    <button onclick="Kick()">Kick</button>
+    <button onclick="hirePlayers()">Hire Players</button>
+      </div>
+  </body>
+</html>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>
+<script>var Goal = 0; // this is for how much energy has been created
+var Players = 0;
+var PlayersAtWork = false;
+
+document.getElementById("totalGoal").innerHTML = "Goal: "+Goal;
+GoalMultiple = 1; // this is how much energy every unit of cycling will create
+
+function Kick(){
+  Goal = Goal + GoalMultiple;
+  document.getElementById("totalGoal").innerHTML = "Goal: "+Goal;
+}
+function PlayersKick(){
+  Goal = Goal + (GoalMultiple*Players);
+  document.getElementById("totalGoal").innerHTML = "Goal: "+Goal;
+}
+
+function makePlayersKick() {
+  if (PlayersAtWork==false){
+    PlayersAtWork = true;
+    setInterval(function() {  
+      PlayersKick()  
+    }, 1000)
+  }   
+}
+
+function hirePlayers() {  
+  Players = Players +1;  
+  makePlayersKick()  
+  document.getElementById("NoOfPlayers").innerHTML = "Players: "+Players;  
+}
+</script>
